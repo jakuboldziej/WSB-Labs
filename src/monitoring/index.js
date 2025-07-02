@@ -52,7 +52,7 @@ class ErrorTracker {
 
     // In production, you might want to send to external service
     if (this.isProduction) {
-      console.error('Production Error:', errorInfo);
+
 
       // Example: Send to external error tracking service
       // this.sendToErrorService(errorInfo);
@@ -61,12 +61,12 @@ class ErrorTracker {
     // Store in localStorage for health check reporting
     try {
       localStorage.setItem('app-errors', JSON.stringify(this.errors.slice(-5)));
-    } catch (e) {
+    } catch {
       // Handle localStorage quota exceeded
     }
   }
 
-  sendToErrorService(errorInfo) {
+  sendToErrorService() {
     // Example implementation for external error tracking
     // fetch('/api/errors', {
     //   method: 'POST',
@@ -134,7 +134,7 @@ class PerformanceMonitor {
 
       try {
         lcpObserver.observe({ entryTypes: ['largest-contentful-paint'] });
-      } catch (e) {
+      } catch {
         // Browser doesn't support LCP
       }
 
@@ -148,7 +148,7 @@ class PerformanceMonitor {
 
       try {
         fidObserver.observe({ entryTypes: ['first-input'] });
-      } catch (e) {
+      } catch {
         // Browser doesn't support FID
       }
     }
@@ -169,7 +169,7 @@ class PerformanceMonitor {
       // Store metrics for health check reporting
       try {
         localStorage.setItem('app-performance', JSON.stringify(this.metrics));
-      } catch (e) {
+      } catch {
         // Handle localStorage quota exceeded
       }
     }

@@ -215,9 +215,12 @@ npm run lint:fix    # Napraw automatycznie możliwe błędy
 ### Security Audit
 
 ```bash
-npm audit           # Sprawdź vulnerabilities
-npm audit --fix     # Napraw znane vulnerabilities
+npm audit                           # Sprawdź wszystkie vulnerabilities
+npm audit --omit=dev               # Sprawdź tylko production dependencies
+npm audit --fix                    # Napraw znane vulnerabilities
 ```
+
+**Note**: CI/CD pipeline sprawdza tylko production dependencies na poziomie `high`. Dev dependencies (jak netlify-cli) mogą mieć moderate vulnerabilities które nie wpływają na produkcję. Projekt używa `overrides` w package.json aby wymusić bezpieczne wersje krytycznych pakietów.
 
 ## 🔄 Workflow
 
