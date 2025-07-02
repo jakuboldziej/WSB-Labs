@@ -15,3 +15,12 @@ Projekt na zaliczenie "Narzędzia do automatyzacji budowy oprogramowania"
 
 <p>npm i</p>
 <p>npm run dev</p>
+
+## Integrated tests
+
+<p>npm test</p>
+
+#### Available Tests
+
+validateForm()
+emailValidator()
