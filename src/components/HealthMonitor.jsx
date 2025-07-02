@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { getEnvironment } from '../utils/env';
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const useHealthCheck = () => {
@@ -12,7 +13,8 @@ export const useHealthCheck = () => {
     const startTime = Date.now();
 
     try {
-      const isDevelopment = import.meta.env.DEV;
+      const env = getEnvironment();
+      const isDevelopment = env.DEV;
 
       if (isDevelopment) {
         // In development mode, use mock data since Netlify functions aren't available
@@ -90,9 +92,10 @@ export const useHealthCheck = () => {
     checkHealth();
 
     // Set up periodic health checks
+    const env = getEnvironment();
     const interval = setInterval(
       checkHealth,
-      import.meta.env.VITE_HEALTH_CHECK_INTERVAL || 30000
+      parseInt(env.VITE_HEALTH_CHECK_INTERVAL) || 30000
     );
 
     return () => clearInterval(interval);
@@ -120,7 +123,9 @@ export const HealthMonitor = () => {
     }
   };
 
-  if (import.meta.env.VITE_ENVIRONMENT === 'production' && !import.meta.env.VITE_ENABLE_DEBUG) {
+  const env = getEnvironment();
+
+  if (env.VITE_ENVIRONMENT === 'production' && !env.VITE_ENABLE_DEBUG) {
     return null;
   }
 
@@ -137,7 +142,7 @@ export const HealthMonitor = () => {
       </div>
 
       <div className="space-y-1 text-xs">
-        {import.meta.env.DEV && (
+        {env.DEV && (
           <div className="flex justify-between mb-2 p-1 bg-yellow-100 rounded">
             <span className="text-yellow-800 font-semibold">Development Mode</span>
             <span className="text-yellow-600">Mock Data</span>
