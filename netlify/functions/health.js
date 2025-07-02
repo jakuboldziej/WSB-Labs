@@ -1,4 +1,4 @@
-exports.handler = async (event, context) => {
+exports.handler = async () => {
   const startTime = Date.now();
 
   try {

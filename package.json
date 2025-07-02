@@ -42,7 +42,10 @@
     "identity-obj-proxy": "^3.0.0",
     "jest": "^30.0.3",
     "jest-environment-jsdom": "^30.0.2",
-    "netlify-cli": "^17.0.0",
+    "netlify-cli": "^22.2.1",
     "vite": "^7.0.0"
+  },
+  "overrides": {
+    "tar-fs": "^3.0.9"
   }
 }

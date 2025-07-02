@@ -55,6 +55,31 @@ export default [
     },
   },
   {
+    files: ['netlify/functions/**/*.js'],
+    languageOptions: {
+      ecmaVersion: 2020,
+      globals: {
+        ...globals.node,
+        exports: 'writable',
+        module: 'writable',
+        process: 'readonly',
+        __dirname: 'readonly',
+        __filename: 'readonly',
+        Buffer: 'readonly',
+        global: 'readonly'
+      },
+      parserOptions: {
+        ecmaVersion: 'latest',
+        sourceType: 'script', // CommonJS for Netlify functions
+      },
+    },
+    rules: {
+      ...js.configs.recommended.rules,
+      'no-console': 'off', // Allow console in serverless functions
+      'no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
+    },
+  },
+  {
     files: ['**/*.test.{js,jsx}', '**/*.spec.{js,jsx}'],
     languageOptions: {
       globals: {
