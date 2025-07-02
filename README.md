@@ -13,5 +13,5 @@ Projekt na zaliczenie "Narzędzia do automatyzacji budowy oprogramowania"
 
 ## Running Locally
 
-npm i
-npm run dev
+<p>npm i</p>
+<p>npm run dev</p>
