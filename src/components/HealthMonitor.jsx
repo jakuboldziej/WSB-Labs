@@ -7,21 +7,57 @@ export const useHealthCheck = () => {
     responseTime: null,
     error: null
   });
-
   const checkHealth = async () => {
     const startTime = Date.now();
 
     try {
-      const response = await fetch('/health', {
+      const isDevelopment = import.meta.env.DEV;
+
+      if (isDevelopment) {
+        // In development mode, use mock data since Netlify functions aren't available
+        const mockData = {
+          timestamp: new Date().toISOString(),
+          status: 'healthy',
+          version: '1.0.0-dev',
+          environment: 'development',
+          responseTime: Date.now() - startTime,
+          deployment: {
+            branch: 'local',
+            commitSha: 'development',
+            buildId: 'local-dev'
+          },
+          checks: {
+            nodeVersion: '18.x.x',
+            platform: 'development'
+          }
+        };
+
+        setHealthStatus({
+          status: 'healthy',
+          lastCheck: new Date().toISOString(),
+          responseTime: Date.now() - startTime,
+          error: null,
+          data: mockData
+        });
+
+        return true;
+      }
+
+      // In production, try to fetch from actual health endpoint
+      const response = await fetch('/.netlify/functions/health', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
-        },
-        timeout: import.meta.env.VITE_HEALTH_CHECK_TIMEOUT || 5000
+        }
       });
 
       if (!response.ok) {
         throw new Error(`Health check failed: ${response.status}`);
+      }
+
+      const contentType = response.headers.get('content-type');
+      if (!contentType || !contentType.includes('application/json')) {
+        throw new Error('Health endpoint returned non-JSON response');
       }
 
       const data = await response.json();
@@ -100,6 +136,13 @@ export const HealthMonitor = () => {
       </div>
 
       <div className="space-y-1 text-xs">
+        {import.meta.env.DEV && (
+          <div className="flex justify-between mb-2 p-1 bg-yellow-100 rounded">
+            <span className="text-yellow-800 font-semibold">Development Mode</span>
+            <span className="text-yellow-600">Mock Data</span>
+          </div>
+        )}
+
         <div className="flex justify-between">
           <span>Status:</span>
           <span className={`font-semibold ${getStatusColor(healthStatus.status)}`}>
@@ -111,6 +154,13 @@ export const HealthMonitor = () => {
           <div className="flex justify-between">
             <span>Response Time:</span>
             <span>{healthStatus.responseTime}ms</span>
+          </div>
+        )}
+
+        {healthStatus.data?.environment && (
+          <div className="flex justify-between">
+            <span>Environment:</span>
+            <span className="capitalize">{healthStatus.data.environment}</span>
           </div>
         )}
 
