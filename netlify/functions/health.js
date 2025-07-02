@@ -1,6 +1,6 @@
 exports.handler = async (event, context) => {
   const startTime = Date.now();
-  
+
   try {
     // Basic health checks
     const healthChecks = {
@@ -24,10 +24,10 @@ exports.handler = async (event, context) => {
 
     // Simulate basic application health check
     const isHealthy = true; // Add your actual health check logic here
-    
+
     // Check if we have recent errors (this would come from monitoring)
     const hasRecentErrors = false; // Implement based on your error tracking
-    
+
     if (!isHealthy || hasRecentErrors) {
       throw new Error('Application health check failed');
     }

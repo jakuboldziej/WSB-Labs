@@ -7,7 +7,7 @@ class ErrorTracker {
     this.errors = [];
     this.maxErrors = 50;
     this.isProduction = import.meta.env.VITE_ENVIRONMENT === 'production';
-    
+
     if (this.isProduction) {
       this.initErrorTracking();
     }
@@ -44,7 +44,7 @@ class ErrorTracker {
   logError(errorInfo) {
     // Add to local storage for debugging
     this.errors.push(errorInfo);
-    
+
     // Keep only recent errors
     if (this.errors.length > this.maxErrors) {
       this.errors = this.errors.slice(-this.maxErrors);
@@ -53,7 +53,7 @@ class ErrorTracker {
     // In production, you might want to send to external service
     if (this.isProduction) {
       console.error('Production Error:', errorInfo);
-      
+
       // Example: Send to external error tracking service
       // this.sendToErrorService(errorInfo);
     }
@@ -106,7 +106,7 @@ class PerformanceMonitor {
   constructor() {
     this.metrics = {};
     this.isProduction = import.meta.env.VITE_ENVIRONMENT === 'production';
-    
+
     if (this.isProduction && 'performance' in window) {
       this.initPerformanceTracking();
     }
@@ -115,7 +115,7 @@ class PerformanceMonitor {
   initPerformanceTracking() {
     // Core Web Vitals tracking
     this.trackCoreWebVitals();
-    
+
     // Page load performance
     window.addEventListener('load', () => {
       setTimeout(() => this.trackPageLoad(), 0);
@@ -131,7 +131,7 @@ class PerformanceMonitor {
         const lastEntry = entries[entries.length - 1];
         this.metrics.lcp = lastEntry.startTime;
       });
-      
+
       try {
         lcpObserver.observe({ entryTypes: ['largest-contentful-paint'] });
       } catch (e) {
@@ -157,7 +157,7 @@ class PerformanceMonitor {
   trackPageLoad() {
     if ('performance' in window && 'timing' in window.performance) {
       const timing = window.performance.timing;
-      
+
       this.metrics.pageLoad = {
         domContentLoaded: timing.domContentLoadedEventEnd - timing.navigationStart,
         loadComplete: timing.loadEventEnd - timing.navigationStart,

@@ -14,7 +14,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/wsb" element={<WSB />} />
       </Routes>
-      
+
       <HealthMonitor />
     </BrowserRouter>
   )
