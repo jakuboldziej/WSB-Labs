@@ -7,8 +7,15 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
     "preview": "vite preview",
-    "test": "jest"
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "deploy:staging": "netlify deploy --dir=dist",
+    "deploy:production": "netlify deploy --prod --dir=dist",
+    "health-check": "curl -f http://localhost:8888/.netlify/functions/health || exit 1",
+    "start": "npm run build && netlify dev"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.11",
@@ -28,12 +35,14 @@
     "@vitejs/plugin-react": "^4.5.2",
     "babel-jest": "^30.0.2",
     "eslint": "^9.29.0",
+    "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.20",
     "globals": "^16.2.0",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^30.0.3",
     "jest-environment-jsdom": "^30.0.2",
+    "netlify-cli": "^17.0.0",
     "vite": "^7.0.0"
   }
 }
