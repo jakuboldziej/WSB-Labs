@@ -15,6 +15,6 @@ export function validateForm(name, email, message) {
 
   return {
     isValid: errors.length === 0,
-    errors: errors
+    errors
   };
 }

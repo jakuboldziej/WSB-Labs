@@ -71,6 +71,13 @@ Projekt na zaliczenie "Narzędzia do automatyzacji budowy oprogramowania" z komp
    npm run dev
    ```
 
+   **Note**: Health Monitor w development mode pokazuje mock data. Aby testować rzeczywiste funkcje Netlify:
+
+   ```bash
+   npm install -g netlify-cli
+   netlify dev  # Zamiast npm run dev
+   ```
+
 5. **Run tests**
    ```bash
    npm test
