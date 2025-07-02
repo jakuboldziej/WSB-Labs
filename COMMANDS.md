@@ -31,7 +31,7 @@ npm run preview
 # Manual deployment to staging
 npm run deploy:staging
 
-# Manual deployment to production  
+# Manual deployment to production
 npm run deploy:production
 
 # Start local Netlify dev server
@@ -130,7 +130,7 @@ git push
 # View GitHub Actions status
 # Visit: https://github.com/your-username/your-repo/actions
 
-# View Netlify deployment status  
+# View Netlify deployment status
 # Visit: https://app.netlify.com/sites/your-site/deploys
 ```
 

@@ -10,7 +10,7 @@ export const useHealthCheck = () => {
 
   const checkHealth = async () => {
     const startTime = Date.now();
-    
+
     try {
       const response = await fetch('/health', {
         method: 'GET',
@@ -91,14 +91,14 @@ export const HealthMonitor = () => {
     <div className="fixed bottom-4 right-4 bg-white shadow-lg rounded-lg p-4 max-w-sm">
       <div className="flex items-center justify-between mb-2">
         <h3 className="text-sm font-semibold">Health Status</h3>
-        <button 
+        <button
           onClick={checkHealth}
           className="text-xs bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600"
         >
           Refresh
         </button>
       </div>
-      
+
       <div className="space-y-1 text-xs">
         <div className="flex justify-between">
           <span>Status:</span>
@@ -106,21 +106,21 @@ export const HealthMonitor = () => {
             {getStatusIcon(healthStatus.status)} {healthStatus.status}
           </span>
         </div>
-        
+
         {healthStatus.responseTime && (
           <div className="flex justify-between">
             <span>Response Time:</span>
             <span>{healthStatus.responseTime}ms</span>
           </div>
         )}
-        
+
         {healthStatus.lastCheck && (
           <div className="flex justify-between">
             <span>Last Check:</span>
             <span>{new Date(healthStatus.lastCheck).toLocaleTimeString()}</span>
           </div>
         )}
-        
+
         {healthStatus.error && (
           <div className="text-red-500 text-xs mt-2">
             Error: {healthStatus.error}
